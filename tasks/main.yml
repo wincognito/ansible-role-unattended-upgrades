@@ -1,0 +1,8 @@
+---
+
+- name: Install packages
+  apt:
+    pkg:
+    - unattended-upgrades
+    - apt-listchanges
+    update_cache: true
