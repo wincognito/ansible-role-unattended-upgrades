@@ -1,0 +1,15 @@
+---
+# handlers file for unattended-upgrades
+
+- name: Restart daily download
+  service:
+    name: apt-daily.timer
+    state: restarted
+  become: true
+
+
+- name: Restart daily upgrade
+  service:
+    name: apt-daily-upgrade.timer
+    state: restarted    
+  become: true

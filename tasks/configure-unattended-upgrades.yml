@@ -1,0 +1,47 @@
+---
+
+
+- block:
+
+  - name: Configure mail in unattended upgrades
+    lineinfile:
+      path: "/etc/apt/apt.conf.d/50unattended-upgrades"
+      regexp: "^/*Unattended-Upgrade::Mail\\s"
+      line: 'Unattended-Upgrade::Mail "{{ unattended_upgrades_mail_user }}";'
+    notify:
+    - Restart daily download
+    - Restart daily upgrade
+
+
+  - name: Configure update package lists for unattended upgrades
+    lineinfile:
+      path: "/etc/apt/apt.conf.d/20auto-upgrades"
+      regexp: "^APT::Periodic::Update-Package-Lists\\s"
+      line: 'APT::Periodic::Update-Package-Lists "1";'
+      create: true
+    notify:
+    - Restart daily download
+    - Restart daily upgrade
+
+
+  - name: Configure unattended upgrade for unattended upgrades
+    lineinfile:
+      path: "/etc/apt/apt.conf.d/20auto-upgrades"
+      regexp: "^APT::Periodic::Unattended-Upgrade\\s"
+      line: 'APT::Periodic::Unattended-Upgrade "1";'
+      create: true
+    notify:
+    - Restart daily download
+    - Restart daily upgrade
+
+
+  - name: Update list changes configuration
+    template:
+      src: templates/listchanges.conf.j2
+      dest: /etc/apt/listchanges.conf
+    notify:
+    - Restart daily download
+    - Restart daily upgrade
+          
+
+  become: true

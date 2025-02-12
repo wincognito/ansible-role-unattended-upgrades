@@ -1,0 +1,11 @@
+---
+# defaults file for unattended-upgrades
+
+
+# https://wiki.debian.org/UnattendedUpgrades
+
+
+# install, configure
+# unattended_upgrades_mode: install
+
+unattended_upgrades_mail_user: root

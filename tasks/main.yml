@@ -1,8 +1,7 @@
 ---
+# tasks file for unattended-upgrades
 
-- name: Install packages
-  apt:
-    pkg:
-    - unattended-upgrades
-    - apt-listchanges
-    update_cache: true
+
+- import_tasks: "{{unattended_upgrades_mode }}-unattended-upgrades.yml"
+
+
